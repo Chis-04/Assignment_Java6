@@ -1,0 +1,54 @@
+<style>
+    .check{
+      color: red;
+    }
+  </style>
+  <form method="POST" name = "formAccount" enctype="multipart/form-data"
+  >
+      <div class="card">
+          <div class="card-header">
+      
+          </div>
+          <div class="card-body">
+              <div class="panel panel-collapse">
+  
+              
+              <div class="row">
+                <div class="col-sm c">
+                  <img  ng-src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+view.photo+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}"
+                  style="display: block; max-width: 200px; max-height: 200px; width: 200px; height: 200px; border-radius: 100%; margin-left: 350px; "
+                  alt=""
+                 >
+              </div>
+              <div  style="text-align: center;align-items: center; margin-left: 130px;">
+                  <div class="col-sm"> 
+                      <div class="row">      
+                        <div class="form-group col-sm-5">
+                          <label for="">Email</label>
+                          <label type="email" name = "txtemail" ng-bind="view.email" class="form-control" pattern="" placeholder="Email" aria-describedby="helpId">
+                    </label>
+                        </div>
+                        <div class="form-group col-sm-5">
+                          <label for="">Name</label>
+                          <label type="text"  ng-bind="view.name" class="form-control" name = "txtname" minlength="3" placeholder="Name" aria-describedby="helpId">
+</label>
+                        </div>
+                
+  
+                          </div>
+                  </div>
+                  <div class="col-sm">
+                      <div class="row">
+                        <div class="form-group col-sm-10">
+                          <label for="">Password</label>
+                          <label type="text"  ng-bind="view.password"class="form-control" name="txtpassword" minlength="6" placeholder="Password" aria-describedby="helpId">
+               </label>
+                        </div>
+                        
+                          </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+      </div>
+  </form>

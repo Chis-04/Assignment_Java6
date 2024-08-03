@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{Usersform/layoutSite.html}">
+
+<head>
+</head>
+
+<body layout:fragment="content" ng-controller="ctrlcart">
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area"
+        style="background: rgba(0, 0, 0, 0) url(/User/images/bg/2.jpg) no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Cart</h2>
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="/">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb-item active">Cart</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Bradcaump area -->
+    <!-- cart-main-area start -->
+    <div class="cart-main-area ptb--120 bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <form action="#">
+                        <div class="table-content table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Image</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-remove">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+
+                                    <td colspan="6" ng-if="pagecartItem.items.length == 0">
+                                        <p style="font-size: x-large;"> Giỏ Hàng Đang Trống... </p>
+                                    </td>
+
+                                    <tr ng-repeat="icart in pagecartItem.items">
+                                        <input type="hidden" ng-model="form.image">
+                                        <input type="hidden" ng-model="form.realPrice">
+                                        <input type="hidden" ng-model="form.products.name">
+
+                                        <td class="product-thumbnail "><a> <img
+                                                    ng-src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+icart.products.image+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}"
+                                                    style="display: block; margin-left: 18px; max-width: 154px; max-height: 128px; width: 154px; height: 128px;">
+                                            </a></td>
+                                        <td class="product-name"><a href="#">{{icart.products.name}}</a></td>
+                                        <td class="product-price"><span class="amount">{{icart.realPrice |
+                                                currency:"":0}}VND</span></td>
+                                        <td class="product-subtotal"><input type="number" min="1"
+                                                id="{{icart.cartDetailID}}"
+                                                ng-click="viewItems.update(icart.cartDetailID)"
+                                                ng-model="icart.quantity" /></td>
+                                        <td class="product-quantity">{{icart.realPrice*icart.quantity|currency:"":0}}
+                                            VND</td>
+                                        <td class="product-remove" ng-click="delete(icart.cartDetailID)"><a>X</a></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 col-sm-7 col-xs-12">
+                                <div class="buttons-cart">
+
+                                    <a href="/">Continue Shopping</a>
+                                    <span ng-click="pagecartItem.prev()" class="btn btn-danger btn-outline "
+                                        style="border-radius: 100%;"><i class="fa fa-angle-left"></i></span>
+                                    <span ng-click="pagecartItem.next()" class="btn btn-danger btn-outline "
+                                        style="border-radius: 100%;"><i class="fa fa-angle-right"></i></span>
+                                        <span ng-if="pagecartItem.count > 0" class="btn btn-outline" > {{pagecartItem.page+1}} / {{pagecartItem.count}}</span>
+                                </div>
+                                <span class="login">
+                                    <form method="post" name="checkorder">
+                                        <input type="text" ng-model="info.numberphone" name="txtphone"
+                                            placeholder="Number Phone*">
+                                        <span ng-show="checkorder.txtphone.$invalid" class="check">Username cần hơn 5 kí
+                                            tự</span>
+                                        <input type="text" ng-model="info.adress" name="txtadress"
+                                            placeholder="Adress*">
+                                        <span ng-show="checkorder.txtadress.$invalid" class="check">Username cần hơn 5
+                                            kí tự</span>
+                                    </form>
+                                </span>
+                            </div>
+                            <div class="col-md-4 col-sm-5 col-xs-12">
+                                <div class="cart_totals">
+                                    <br><br>
+                                    <table>
+                                        <tbody>
+                                            <tr class="order-total">
+                                                <th>Total</th>
+                                                <td>
+                                                    <strong><span class="amount">{{getTotal()|currency:"":0}}
+                                                            VND</span></strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br><br>
+                                    <div class="wc-proceed-to-checkout" ng-if="getTotal() >0">
+                                        <a ng-click="viewItems.addOrder()">Order</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

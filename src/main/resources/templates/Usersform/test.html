@@ -1,0 +1,23 @@
+<!doctype html>
+<html ng-app>
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.0rc11.min.js"></script>
+    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+</head>
+<body>
+<div ng-controller="AlbumCtrl">
+    {{countDown}}
+    <button ng-click="countController(11)">Stop</button>    
+</div>
+<script>
+    function countController($scope){
+    $scope.countDown = 10;    
+    var timer = setInterval(function(){
+        $scope.countDown--;
+        $scope.$apply();
+        console.log($scope.countDown);
+    }, 1000);  
+}
+</script>
+</body>
+</html>

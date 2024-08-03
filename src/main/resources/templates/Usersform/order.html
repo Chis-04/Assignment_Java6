@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{Usersform/layoutSite.html}">
+
+<head>
+</head>
+
+<body layout:fragment="content" ng-controller="ctrloder">
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area"
+        style="background: rgba(0, 0, 0, 0) url(/User/images/bg/2.jpg) no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Order</h2>
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="/">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb-item active">Order</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Bradcaump area -->
+    <!-- cart-main-area start -->
+    <div style="float: right; margin-right: 160px;">
+        <div class="buttons-cart">
+            <a ng-click="viewOrderingByUsername()"> Đơn Hàng Đang Mua</a>
+            <a ng-click="viewOrderedByUsername()"> Đơn Hàng Đã Hoàn Thành</a>
+        </div>
+    </div>
+    <span class="hidden" id="username">[[${#request.remoteUser}]]</span>
+    <!-- sua lai hien thi tung order r hien thi orderditail bang chi tiet -->
+    <div class="cart-main-area ptb--120 bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <form action="#">
+                        <div class="table-content table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Receiver</th>
+                                        <th class="product-name">NumberPhone</th>
+                                        <th class="product-price">Adress</th>
+                                        <th class="product-quantity">Time Order</th>
+                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-name">Control</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td colspan="6" ng-if="pageOrder.items.length == 0">
+                                        <p style="font-size: x-large; text-align: center;"> Hiện Tại Đang Trống...<i
+                                                class="fa fa-hourglass-half" aria-hidden="true"></i> </p>
+
+                                    </td>
+                                    <tr ng-repeat="icart in pageOrder.items">
+                                        <input type="hidden" ng-model="form.image">
+                                        <input type="hidden" ng-model="form.unit_price ">
+                                        <input type="hidden" ng-model="form.productOrder.name">
+
+                                        <td class="product-name "><a>{{icart.accountoder.name}}</a></td>
+                                        <td class="product-thumbnail"><a>{{icart.phone}}</a></td>
+                                        <td class="product-price"><a>{{icart.adress}}</a></td>
+                                        <td class="product-subtotal">{{icart.orderDate | date:'dd-MM-yyyy'}}</td>
+                                        <td class="product-subtotal">{{icart.amount|currency:"":0}} VND</td>
+                                        <td class="product-name">
+                                            <span class="btn btn-outline btn-danger" style="width: 130px;"
+                                                ng-if="icart.status == 3">Đã Hủy Đơn </span>
+                                            <span class="btn btn-outline btn-success " style="width: 130px;"
+                                                ng-if="icart.status == 4">Đã Nhận Hàng </span>
+                                            <button class="btn btn-dark" style="width: 50px;"
+                                                ng-if="icart.status == 1"><i class="fa fa-hourglass-half"
+                                                    aria-hidden="true"></i></button>
+                                                    <span class="btn btn-outline" style="width: 50px;"
+                                                    ng-if="icart.status == 2" ></span>
+                                            <span class="btn btn-success" style="width: 50px;"
+                                                ng-if="icart.status == 2" ng-click="danhan(icart.orderID)"><i
+                                                    class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                            <span class="btn btn-danger" style="width:50px;" ng-if="icart.status == 1"
+                                                ng-click="huydon(icart.orderID)"> <i class="fa fa-times"
+                                                    aria-hidden="true"></i> </span>
+                                            <span class="btn btn-primary" data-toggle="modal" data-target="#detailModal"
+                                                ng-click="viewOrderdetailbyOrderAndUsername(icart.orderID)"
+                                                style="width: 50px;" ng-if="icart.status == 2 ||icart.status == 1 "> <i
+                                                    class="fa fa-info" aria-hidden="true"></i> </span>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal__container" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="table-content table-responsive">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="product-thumbnail">Image</th>
+                                                            <th class="product-name">Product</th>
+                                                            <th class="product-price">Price</th>
+                                                            <th class="product-quantity">Quantity</th>
+                                                            <th class="product-subtotal">Total</th>
+                                                            <th class="product-remove">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="i in pageDetail.items">
+                                                            <input type="hidden" ng-model="form.image">
+                                                            <input type="hidden" ng-model="form.unit_price ">
+                                                            <input type="hidden" ng-model="form.productOrder.name">
+                                                            <td class="product-thumbnail "><a> <img
+                                                                        ng-src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+i.productOrder.image+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}">
+                                                                </a></td>
+                                                            <td class="product-name"><a
+                                                                    href="#">{{i.productOrder.name}}</a></td>
+                                                            <td class="product-price"><span class="amount">{{i.unitPrice
+                                                                    | currency:"":0}} VND</span></td>
+                                                            <td class="product-subtotal">{{i.quantity}}</td>
+                                                            <td class="product-subtotal">
+                                                                {{i.unitPrice*i.quantity|currency:"":0}} VND</td>
+                                                            <td class="product-remove">
+                                                                <span class="btn btn-dark" style="width: 50px;"
+                                                                    ng-if="icart.status == 1"><i
+                                                                        class="fa fa-hourglass-half"
+                                                                        aria-hidden="true"></i></span>
+
+                                                                <span class="btn btn-outline" style="width: 130px;"
+                                                                    ng-if="i.orders.status == 2"> Đang Giao Hàng
+                                                                </span><br>
+                                                                <span class="btn btn-outline" style="width: 130px;"
+                                                                    ng-if="i.orders.status == 1"> Đang Xác Nhận
+                                                                </span><br>
+                                                                <br>
+
+
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                                <div style="float: left;">
+                                                    <span ng-click="pageDetail.prev()"
+                                                        class="btn btn-danger btn-outline "
+                                                        style="border-radius: 100%;"><i
+                                                            class="fa fa-angle-left"></i></span>
+                                                    <span ng-click="pageDetail.next()"
+                                                        class="btn btn-danger btn-outline "
+                                                        style="border-radius: 100%;"><i
+                                                            class="fa fa-angle-right"></i></span>
+                                                            <span class="btn btn-outline" > {{pageDetail.page+1}} / {{pageDetail.count}}</span>
+                                                </div>
+
+
+                                            </div>
+                                            <!-- .product-info -->
+
+                                        </form>
+                                    </div><!-- .modal-body -->
+
+
+                                </div><!-- .modal-content -->
+                            </div><!-- .modal-dialog -->
+                        </div>
+                        <!-- END Modal -->
+                        <div class="row">
+                            <div class="col-md-8 col-sm-7 col-xs-12">
+                                <div class="buttons-cart">
+
+                                    <a href="/">Continue Shopping</a>
+                                    <span ng-click="pageOrder.prev()" class="btn btn-danger btn-outline "
+                                        style="border-radius: 100%;"><i class="fa fa-angle-left"></i></span>
+                                    <span ng-click="pageOrder.next()" class="btn btn-danger btn-outline "
+                                        style="border-radius: 100%;"><i class="fa fa-angle-right"></i></span>
+                                        <span ng-if="pageOrder.count > 0" class="btn btn-outline" > {{pageOrder.page+1}} / {{pageOrder.count}}</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

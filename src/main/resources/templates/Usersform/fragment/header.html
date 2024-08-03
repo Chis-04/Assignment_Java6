@@ -1,0 +1,250 @@
+<div th:fragment="header" ng-controller="ctrlcartDetail">
+    <header id="header" class="htc-header header--3 bg__white">
+        <!-- Start Mainmenu Area -->
+        <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <div class="logo">
+                            <a th:href="@{/home/user}">
+                                <img src="/User/images/logo/logo.png" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Start MAinmenu Ares -->
+                    <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                        <nav class="mainmenu__nav hidden-xs hidden-sm">
+                            <ul class="main__menu">
+                                <li class="drop"><a th:href="@{/home/user}">Home</a></li>
+                                <li class="drop"><a th:href="@{/cart}">CartItems</a></li>
+                                <li class="drop"><a th:href="@{/order}">Order</a> </li>
+                                <li class="drop"><a th:href="@{/about}">about</a>
+
+                                </li>
+                                <li class="drop"><a th:href="@{#}">pages</a>
+                                    <ul class="dropdown">
+                                        <li><a th:href="@{/about}">about</a></li>
+                                        <li><a th:href="@{/home}">shop</a></li>
+                                        <li><a th:href="@{/cart}">cart</a></li>
+                                        <li><a th:href="@{/order}">Order</a></li>
+                                        <li><a th:href="@{/auth/login/form}">login & register</a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/contact}">contact</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                    <!-- End MAinmenu Ares -->
+                    <div class="col-md-2 col-sm-4 col-xs-3">
+                        <ul class="menu-extra">
+                            <li>
+                                <th:block th:if="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}">
+                                    <a ng-click="logout()"><i class="fas fa-sign-out-alt    "></i></a>
+
+                                </th:block>
+                                <th:block
+                                    th:unless="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}">
+                                    <a th:href="@{/auth/login/form}"><span class="ti-user"></span></a>
+                                </th:block>
+                            </li>
+                            <ul class="hidden" id="useredit">[[${#request.remoteUser}]]</ul>
+                            <li class="cart__menu" ng-click="viewItems()"><a><span class="ti-shopping-cart"></span></a>
+                            </li>
+                            <li class="toggle__menu hidden-xs hidden-sm" ng-click="edit()"><span class="ti-menu"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mobile-menu-area"></div>
+            </div>
+        </div>
+        <!-- End Mainmenu Area -->
+    </header>
+    <nav class="offset__wrapper">
+
+        <div class="body__overlay"></div>
+        <!-- Start Offset Wrapper -->
+        <div class="offset__wrapper">
+            <!-- Start Searc Popap -->
+            <!-- End Search Popap -->
+            <!-- Start Offset MEnu -->
+            <div class="offsetmenu">
+                <div class="offsetmenu__inner">
+                    <div class="offsetmenu__close__btn">
+                        <a href="#"><i class="zmdi zmdi-close"></i></a>
+                    </div>
+                    <div class="off__contact">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/User/images/logo/logo.png" alt="logo">
+                            </a>
+                        </div>
+                        <p>
+                            <th:block th:if="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}">
+                                Xin chào, <b>{{names}}</b> !!
+                                <br>
+                                <img src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+form.photo+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}"
+                                    style=" display: block; max-width: 200px; max-height: 200px; width: 200px; height: 200px; margin-left: 70px;border-radius: 80%; "
+                                    alt="" id="imageuser">
+                                <br>
+                                <span class="login" name="formAccountRegis">
+                                    <input type="file" class="hidden" onchange="chooseFile(this)" id="photo" multiple>
+                                    <label for="photo" class="btn btn-outline btn-danger">Select file</label>
+
+                                    <button class="btn btn-outline btn-primary"
+                                        onclick="angular.element(this).scope().uploadImages()">upload</button>
+                                    <br>
+                                    <script>
+                                        function chooseFile(fileInput) {
+
+                                            if (fileInput.files && fileInput.files[0]) {
+                                                var reader = new FileReader();
+
+                                                reader.onload = function (e) {
+                                                    $('#imageuser').attr('src', e.target.result);
+                                                }
+
+                                                reader.readAsDataURL(fileInput.files[0]);
+                                            }
+                                        }
+                                    </script>
+                                    <label for="" style="float: right;">Email</label>
+                                    <input type="email" readonly name="txtemails" ng-model="form.email"
+                                        placeholder="Email*">
+                                    <span ng-show="formAccountRegis.txtemails.$invalid" class="check">Hãy nhập đúng
+                                        Email của bạn</span>
+                                    <br>
+                                    <input type="password" ng-model="form.password" class="hidden" name="txtpasswords"
+                                        minlength="6" placeholder="Password*">
+                                    <span ng-show="formAccountRegis.txtpasswords.$invalid" class="check">Password cần
+                                        hơn 6 kí tự</span>
+                                    <label for="" style="float: right;">Name</label>
+                                    <input type="text" ng-model="form.name" name="txtnames" minlength="3"
+                                        placeholder="Name*">
+                                    <span ng-show="formAccountRegis.txtnames.$invalid" class="check">Hãy nhập đúng họ và
+                                        tên của bạn</span>
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-block  btn-danger " ng-click="update()" type="submit">Cập
+                                        Nhật</button>
+                                    <button class="btn btn-block  btn-primary " data-toggle="modal"
+                                        data-target="#changePassword" type="submit">Đổi Mật Khẩu</button>
+                                </span>
+                                <!-- Modal -->
+                                <div class="modal fade" style="margin-top: 80px;" id="changePassword" tabindex="-1"
+                                    role="dialog">
+                                    <div class="modal-dialog modal__container" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                Đổi Mật Khẩu
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <span class="login" name="changePassword">
+                                                        <label for="" class="hidden"
+                                                            id="oldpass">{{form.password}}</label><br><br>
+                                                        <label for="">Password</label>
+                                                        <input type="password" ng-model="change.password"
+                                                            placeholder="Password*">
+
+                                                        <br><br>
+                                                        <label for="">New Password</label>
+                                                        <input type="password" ng-model="change.newpassword"
+                                                            placeholder="New Password*">
+                                                        <br><br>
+                                                        <label for="">Confirm Password</label>
+                                                        <input type="password" ng-model="change.confirmpassword"
+                                                            placeholder="Confirm Password*">
+
+                                                        <br>
+                                                        <div class="htc__login__btn mt--30">
+                                                            <button class="btn btn-block  btn-primary "
+                                                                ng-click="changepass()" type="submit">Đổi Mật
+                                                                Khẩu</button>
+
+                                                        </div>
+                                                    </span>
+                                                </form>
+                                            </div><!-- .modal-body -->
+                                        </div><!-- .modal-content -->
+                                    </div><!-- .modal-dialog -->
+                                </div>
+                                <!-- END Modal -->
+                            </th:block>
+                            <th:block th:unless="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}">
+                                Hãy đăng nhập để nhận thật nhiều ưu đãi của shop nào!! <br>
+                            </th:block>
+                        </p>
+                    </div>
+                    <ul class="sidebar__thumd">
+                    </ul>
+                </div>
+            </div>
+            <!-- End Offset MEnu -->
+            <!-- Start Cart Panel -->
+            <div class="shopping__cart">
+                <th:block th:if="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}">
+                    <div class="shopping__cart__inner">
+                        <div class="offsetmenu__close__btn">
+                            <a href="#"><i class="zmdi zmdi-close"></i></a>
+                            <span class="hidden" id="usernameCart">[[${#request.remoteUser}]]</span>
+                        </div>
+                        <div class="shp__cart__wrap">
+                            <div class="shp__single__product"
+                                style="font-size: large; font-weight: 200; min-height: 250px;"
+                                ng-if="pagecart.items.length ==0">
+                                Bạn Chưa Có Sản Phẩm Nào Trông Giỏ...
+                            </div>
+                            <div class="shp__single__product" ng-repeat="i in pagecart.items">
+                                <div class="shp__pro__thumb">
+                                    <a href="#">
+                                        <img ng-src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+i.products.image+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}"
+                                            style="display: block; max-width: 60px; max-height: 60px; width: 60px; height: 60px;"
+                                            alt="product images">
+                                    </a>
+                                </div>
+                                <div class="shp__pro__details">
+                                    <h2><a href="/product-details">{{i.products.name}}</a></h2>
+                                    <span class="quantity">{{i.quantity}}</span>
+                                    <span class="shp__price">{{i.realPrice | currency:"":0}}</span>
+                                </div>
+                                <div class="remove__btn">
+                                    <a ng-click="delete(i.cartDetailID)" title="Remove this item"><i
+                                            class="zmdi zmdi-close"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="shoping__total">
+                            <li class="subtotal"></li>
+                            <li class="total__price"> <button ng-click="pagecart.prev()" class="btn btn-outline"
+                                    style="border-radius: 100%;"><i class="fa fa-angle-left"
+                                        aria-hidden="true"></i></button>
+                                <button ng-click="pagecart.next()" class="btn btn-outline"
+                                    style="border-radius: 100%;"><i class="fa fa-angle-right"
+                                        aria-hidden="true"></i></button>
+                            </li>
+                        </ul>
+                        <ul class="shopping__btn">
+                            <li><a href="/cart">View Cart </a></li>
+                            <!-- <li><a href="/cart">View Cart</a></li> -->
+                            <li class="shp__checkout"><a href="/order">Order</a></li>
+                        </ul>
+                    </div>
+                </th:block>
+                <th:block th:unless="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}">
+                    <div class="shopping__cart__inner">
+                        <div class="offsetmenu__close__btn">
+                            <a href="#"><i class="zmdi zmdi-close"></i></a>
+                        </div>
+                        <ul class="shopping__btn">
+                            <li class="shp__checkout"><a href="/auth/login/form">Bạn chưa đăng nhập</a></li>
+                        </ul>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </nav>
+</div>

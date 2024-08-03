@@ -1,0 +1,129 @@
+<style>
+  .check {
+    color: red;
+  }
+</style>
+<form method="POST" name="formproduct" enctype="multipart/form-data">
+  <div class="card">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <div class="panel panel-collapse">
+
+
+        <div class="row">
+          <div class="col-sm-4">
+            <img src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+form.image+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}"
+              style="display: block; max-width: 350px; max-height: 285px; width: 350px; height: 285px; border: 1px;" alt=""
+              id="imageProduct">
+            <br>
+            <div class="form-group col-sm-9">
+
+              <input type="file" class="hidden" onchange="chooseFile(this)" id="photo" multiple>
+              <label for="photo" class="btn btn-outline btn-danger">Select file</label>
+
+              <button class="btn btn-outline btn-primary"
+                onclick="angular.element(this).scope().uploadImages()">upload</button>
+
+            </div>
+<!-- upload view image  -->
+            <script>
+              function chooseFile(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
+                  var reader = new FileReader();
+
+                  reader.onload = function (e) {
+                   
+                    $('#imageProduct').attr('src', e.target.result);
+                  }
+
+                  reader.readAsDataURL(fileInput.files[0]);
+                }
+              }
+            </script>
+
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+
+              <div class="form-group col-sm-6">
+                <label for="">Name</label>
+                <input type="text" name="txtname" ng-model="form.name" minlength="4" class="form-control"
+                  placeholder="Name" aria-describedby="helpId">
+                <span ng-show="formproduct.txtname.$invalid" id="helpId" class="check">Bạn nhập không Name
+                  Product</span>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="">EnteredDate</label>
+                <input type="date" ng-model="form.enteredDate" class="form-control" placeholder=""
+                  aria-describedby="helpId">
+
+              </div>
+
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="">Quantity</label>
+                <input type="number" name="txtquantity" ng-model="form.quantity" min="1" class="form-control"
+                  placeholder="Quantity" aria-describedby="helpId">
+                <span ng-show="formproduct.txtquantity.$invalid" id="helpId" class="check">Số lượng không thể bằng
+                  0</span>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="">UnitPrice</label>
+                <input type="text" name="txtunitPrice" minlength="4" ng-model="form.unitPrice" class="form-control"
+                  aria-current="step" placeholder="UnitPrice" aria-describedby="helpId">
+                <span ng-show="formproduct.txtunitPrice.$invalid" id="helpId" class="check">Gía bán phải lớn hơn
+                  1000Đ</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="">Description</label>
+                <input type="text" ng-model="form.description" class="form-control" placeholder="Description"
+                  aria-describedby="helpId">
+
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="">Discount</label>
+                <input type="number" name="txtdiscount" min="0" max="100" ng-model="form.discount" class="form-control"
+                  placeholder="Discount" aria-describedby="helpId">
+                <span ng-show="formproduct.txtdiscount.$invalid" id="helpId" class="check">Nhập sai giảm giá rùi</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="form-group col-sm-6">
+
+                <label for="">Category</label>
+                <select id="my-select" ng-model="form.category.categoryID" class="form-control">
+                  <option value="" class="text-center">Select Categoty</option>
+                  <option ng-repeat="c in cates" ng-value="c.categoryID">{{c.name}}</option>
+                </select>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="">Brand</label>
+                <select id="my-select" ng-model="form.brand.brandID" class="form-control">
+                  <option value="">Select Brands</option>
+                  <option ng-repeat="b in brands" ng-value="b.brandID">{{b.name}}</option>
+                </select>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+</form>

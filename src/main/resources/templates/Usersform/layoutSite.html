@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>T-MART</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="shortcut icon" type="image/x-icon" href="/User/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/User/apple-touch-icon.png">
+
+
+  <!-- All css files are included here. -->
+  <!-- Bootstrap fremwork main css -->
+  <link rel="stylesheet" href="/User/css/bootstrap.min.css">
+  <!-- Owl Carousel main css -->
+  <link rel="stylesheet" href="/User/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/User/css/owl.theme.default.min.css">
+  <!-- This core.css file contents all plugings css file. -->
+  <link rel="stylesheet" href="/User/css/core.css">
+  <!-- Theme shortcodes/elements style -->
+  <link rel="stylesheet" href="/User/css/shortcode/shortcodes.css">
+  <!-- Theme main style -->
+  <link rel="stylesheet" href="/User/style.css">
+  <!-- Responsive css -->
+  <link rel="stylesheet" href="/User/css/responsive.css">
+  <!-- User style -->
+  <link rel="stylesheet" href="/User/css/custom.css">
+  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.css">
+  <!-- Modernizr JS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <script src="/User/js/vendor/modernizr-2.8.3.min.js"></script>
+  <style>
+    .check {
+      color: red;
+    }
+
+    .swal-container {
+      z-index: 2000;
+    }
+
+    ;
+  </style>
+</head>
+
+<body ng-app="app">
+  <main>
+    <div class="wrapper fixed__footer">
+
+
+      <div th:replace="Usersform/fragment/header:: header"></div>
+
+
+
+      <div layout:fragment="content"></div>
+
+      <footer class="htc__foooter__area gray-bg">
+
+        <div th:replace="Usersform/fragment/footer:: footer"></div>
+
+      </footer>
+    </div>
+  </main>
+
+  <!-- END QUICKVIEW PRODUCT -->
+  <!-- Placed js at the end of the document so the pages load faster -->
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyA_hR-AlQXfrbqmUYj8pS4hJTXgUu7Gh9A",
+      authDomain: "uploadimagesjava6.firebaseapp.com",
+      projectId: "uploadimagesjava6",
+      storageBucket: "uploadimagesjava6.appspot.com",
+      messagingSenderId: "1078492520920",
+      appId: "1:1078492520920:web:d75e8fc55f95f8910212ad",
+      measurementId: "G-12Y8D2Q43R"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <!-- jquery latest version -->
+  <script src="/User/js/vendor/jquery-1.12.0.min.js"></script>
+  <!-- Bootstrap framework js -->
+  <script src="/User/js/bootstrap.min.js"></script>
+  <!-- All js plugins included in this file. -->
+  <script src="/User/js/plugins.js"></script>
+  <script src="/User/js/slick.min.js"></script>
+  <script src="/User/js/owl.carousel.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="/node_modules/sweetalert2/src/sweetalert2.js"></script>
+  <!-- Waypoints.min.js. -->
+  <script src="/User/js/waypoints.min.js"></script>
+  <!-- Main js file that contents all jQuery plugins activation. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+  <script th:src="@{/User/js/main.js}"></script>
+  <script th:src="@{/User/userJS/Homeproduct.js}"></script>
+  <script th:src="@{/User/userJS/cartItem.js}"></script>
+  <script th:src="@{/User/userJS/order.js}"></script>
+  <script th:src="@{/User/userJS/myorder.js}"></script>
+</body>
+
+</html>

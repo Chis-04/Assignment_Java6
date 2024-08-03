@@ -1,0 +1,95 @@
+<form>
+  <div class="card">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <div class="panel panel-collapse">
+
+
+        <div class="row">
+          <div class="col-sm-4">
+            <img
+              ng-src="{{'https://firebasestorage.googleapis.com/v0/b/uploadimagesjava6.appspot.com/o/'+view.image+ '?alt=media&token=155d6665-5e02-42e7-9b7b-f22eb82799fa'}}"
+              style="display: block; max-width: 280px; max-height: 300px; width: auto; height: 300px;" alt=""
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}">
+
+            <div class="form-group ">
+              <label for="">FileImage</label>
+
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+
+              <div class="form-group col-sm-6">
+                <label for="">Name :</label>
+                <label type="text" placeholder="Name"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.name}}</label>
+
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="">EnteredDate :</label>
+                <label type="date" placeholder="" style="font-style: italic; color: rgb(7, 7, 165);">{{view.enteredDate
+                  | date:'dd-MM-yyyy'}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="">Quantity :</label>
+                <label type="text" placeholder="Quantity"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.quantity}}</label>
+
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="">UnitPrice :</label>
+                <label type="text" placeholder="UnitPrice"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.unitPrice}}</label>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="">Description :</label>
+                <label type="text" placeholder="Description"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.description}}</label>
+
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="">Discount :</label>
+                <label type="text" placeholder="Discount"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.discount}}</label>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="form-group col-sm-6">
+
+                <label for="">Category :</label>
+                <label type="text" placeholder="Discount"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.category.name}}</label>
+
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="">Brand :</label>
+                <label type="text" placeholder="Discount"
+                  style="font-style: italic; color: rgb(7, 7, 165);">{{view.brand.name}}</label>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
